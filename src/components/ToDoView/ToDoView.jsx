@@ -1,10 +1,24 @@
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useState } from "react";
+import { ToDoState } from "../../state/atoms/ToDoState";
+import NumbToDo from "../NumbToDo/NumbToDo";
+
 export const ToDoView = () => {
-  const task = [];
+  const [tasks, setTasks] = useRecoilState(ToDoState);
+
+  const handleDeleteToDo = (id) => {
+    const updateTasks = tasks.filter((task) => task.id != id);
+    const newTasks = updateTasks.map((task, index) => ({
+      ...task,
+      id: index + 1,
+    }));
+    setTasks(newTasks);
+  };
 
   return (
     <div className="bg-slate-200 ">
-      <div className="max-w-[1400px] w-[100%] h-[94vh] flex justify-center items-center mx-auto">
-        <div className="bg-white w-[350px] flex justify-center items-start p-9 rounded-xl shadow-lg shadow-gray-500/50 md:w-[500px] h-[500px]">
+      <div className="max-w-[1400px] w-full h-[94vh] flex flex-col  justify-center items-center mx-auto">
+        <div className="bg-white w-[350px] flex justify-center items-start p-9 rounded-xl shadow-lg mb-4 shadow-gray-500/50 md:w-[500px] h-[500px]">
           <table className="w-[400px] border-collapse border border-black rounded-lg overflow-hidden">
             <tbody>
               <tr>
@@ -15,10 +29,11 @@ export const ToDoView = () => {
                   To Do
                 </td>
               </tr>
-              {task.map(({ id, description }) => (
+              {tasks.map(({ id, description }) => (
                 <tr
                   key={id}
                   className="group/task odd:bg-white even:bg-slate-100"
+                  onClick={() => handleDeleteToDo(id)}
                 >
                   <td className="w-[50px] border p-1 rounded-bl-lg group-hover/task:bg-sky-100">
                     {id}
@@ -35,6 +50,7 @@ export const ToDoView = () => {
             </tbody>
           </table>
         </div>
+        <NumbToDo />
       </div>
     </div>
   );
