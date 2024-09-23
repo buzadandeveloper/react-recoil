@@ -1,5 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { ToDoState } from "../../state/atoms/ToDoState";
 import NumbToDo from "../NumbToDo/NumbToDo";
 
