@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { TotalToDo } from "../../state/selectros/TotalToDo";
+import { TotalToDo } from "../../state/selectors/TotalToDo";
 
 const NumbToDo = () => {
   const totalToDo = useRecoilValue(TotalToDo);
